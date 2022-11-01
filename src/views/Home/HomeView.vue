@@ -1,7 +1,7 @@
 <template>
-    <input-component/>
+    <input-component @searchText="deneme"/>
   <v-row >
-    <v-col  v-for="(items, i) in getItem" :key="i">
+    <v-col  v-for="(items, i) in searchItem" :key="i">
       <v-card width="20em" height="20em"  style="margin-top:100px" >
       <div class="d-flex justify-space-around">
         <div>
@@ -44,16 +44,34 @@
 </template>
 
 <script lang="ts">
-  
+import store from "../../store";
 import { defineComponent } from "vue";
-import { mapGetters } from "vuex";
 // Components
 import inputComponent from "@/components/inputComponent.vue"
 
 export default defineComponent({
   name: "HomeView",
+  data(){
+    return {
+      search:"",
+    }
+  },
+  methods: {
+    deneme(value:string){
+        this.search = value
+    }
+  },
   computed: {
-    ...mapGetters(["getItem"]),
+    //hesaplama sürekli işlemlerde
+    searchItem(){
+        if(this.search.length >= 2){
+          const fixSearch = this.search.toLowerCase().replace(/\s/g, "");
+          return store.getters.getItem.filter((x:any) =>
+          x.name.toLowerCase().replace(/\s/g, "").includes(fixSearch))
+        } else {
+          return store.getters.getItem
+        }
+    }
   },
   components: {
     inputComponent

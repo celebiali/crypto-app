@@ -9,7 +9,7 @@
           class="ma-auto mt-4  pa-2 d-flex"
         >
           <input
-            type="text"
+            type="search"
             placeholder="Search"
             v-model="searchText"
             class="rounded-pill"
@@ -21,6 +21,23 @@
 
 <script>
 export default {
+  data() {
+        return {
+            isLoading:true,
+            items: [],
+            secilenLocation: "",
+            ind: "",
+            searchText: "",
+            result: [],
+            value:"",
+            show:true
+        };
+    },
+    watch:{
+    searchText(){
+     this.$emit('searchText', this.searchText)
+    }
+  }   
 
 }
 </script>
