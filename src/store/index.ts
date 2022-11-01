@@ -4,16 +4,16 @@ import { createStore } from 'vuex'
 
 export default createStore({
   state: {
-    item:[]
+    items:[]
   },
   getters: {
-    getItem(state){
-      return state.item
+    getItems(state){
+      return state.items
     }
   },
   mutations: {
   setItems(state,payload){
-    state.item=payload
+    state.items=payload
   }
   },
   actions: {
@@ -27,7 +27,4 @@ export default createStore({
     },
    
   },
-  modules: {
-
-  }
 })

@@ -11,7 +11,7 @@
 <script lang="ts">
 import DataModels from "@/models/DataModels";
 import { defineComponent } from "@vue/runtime-core";
-import {  mapActions } from "vuex";
+import { mapGetters } from "vuex";
 export default defineComponent({
   data() {
     return {
@@ -19,8 +19,14 @@ export default defineComponent({
     };
   },
   computed: {
-    ...mapActions(["setItems"])
+    ...mapGetters(["getItems"])
   },
-
+  mounted(){
+    this.data = this.getItems.find((x:DataModels) => {
+      console.log("route",this.$route);
+      
+      return x.market_cap_rank === Number(this.$route.params.id)
+    })
+  }
 });
 </script>

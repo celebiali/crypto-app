@@ -33,8 +33,8 @@
             <v-icon>mdi-thumb-up</v-icon>
           </v-btn>
           <v-spacer></v-spacer>
-      <v-btn color="green lighten-2" to="/details">DETAILS</v-btn>
-      <DetailPage />
+      <v-btn color="green lighten-2" @click.stop="onPush(items.market_cap_rank)">DETAILS</v-btn>
+      
       </div>
     </v-card-text>
   </v-card>
@@ -49,7 +49,7 @@ import store from "../../store";
 import { defineComponent } from "vue";
 // Components
 import inputComponent from "@/components/inputComponent.vue"
-import DetailPage from "@/views/Details/detailPage.vue";
+
 
 export default defineComponent({
   name: "HomeView",
@@ -59,15 +59,16 @@ export default defineComponent({
     }
   },
   components: {
-    DetailPage,
     inputComponent
   },
   methods: {
     deneme(value:string){
         this.search = value
     },
-    onPush(i: number) {
-      this.$router.push(`/details/${i}`);
+    onPush(id: number) {
+      this.$router.push(`/details/${id}`);
+    
+      
     },
   },
   computed: {
@@ -78,7 +79,7 @@ export default defineComponent({
           return store.getters.getItem.filter((x:any) =>
           x.name.toLowerCase().replace(/\s/g, "").includes(fixSearch))
         } else {
-          return store.getters.getItem
+          return store.getters.getItems
         }
     }
   },
