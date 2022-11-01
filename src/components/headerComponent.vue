@@ -13,4 +13,5 @@
       <v-main />
     </v-layout>
   </v-card>
+  <router-view></router-view>
 </template>

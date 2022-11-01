@@ -34,6 +34,7 @@
           </v-btn>
           <v-spacer></v-spacer>
       <v-btn color="green lighten-2" to="/details">DETAILS</v-btn>
+      <DetailPage />
       </div>
     </v-card-text>
   </v-card>
@@ -48,6 +49,7 @@ import store from "../../store";
 import { defineComponent } from "vue";
 // Components
 import inputComponent from "@/components/inputComponent.vue"
+import DetailPage from "@/views/Details/detailPage.vue";
 
 export default defineComponent({
   name: "HomeView",
@@ -56,10 +58,17 @@ export default defineComponent({
       search:"",
     }
   },
+  components: {
+    DetailPage,
+    inputComponent
+  },
   methods: {
     deneme(value:string){
         this.search = value
-    }
+    },
+    onPush(i: number) {
+      this.$router.push(`/details/${i}`);
+    },
   },
   computed: {
     //hesaplama sürekli işlemlerde
@@ -73,8 +82,5 @@ export default defineComponent({
         }
     }
   },
-  components: {
-    inputComponent
-  }
 });
 </script>

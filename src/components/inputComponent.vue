@@ -19,8 +19,10 @@
         </div>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import { defineComponent } from "@vue/runtime-core";
+
+export default defineComponent({
   data() {
         return {
             isLoading:true,
@@ -33,13 +35,9 @@ export default {
             show:true
         };
     },
-    watch:{
-    searchText(){
-     this.$emit('searchText', this.searchText)
-    }
-  }   
+    
 
-}
+})
 </script>
 
 <style>

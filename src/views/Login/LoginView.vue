@@ -42,9 +42,7 @@
 import { defineComponent } from "@vue/runtime-core"
 
  export default defineComponent({
-    props: {
-       source: String,
-    },
+
  });
  </script>
  

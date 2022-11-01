@@ -11,7 +11,6 @@
 import { defineComponent } from 'vue'
 import headerComponent from "../src/components/headerComponent.vue"
 
-import store from "./store";
 export default defineComponent({
   components: { 
     headerComponent,
@@ -22,8 +21,6 @@ export default defineComponent({
       //
     }
   },
-  created() {
-    store.dispatch("setItems");
-  },
+ 
 })
 </script>
