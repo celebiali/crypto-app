@@ -34,14 +34,11 @@
           </v-btn>
           <v-spacer></v-spacer>
       <v-btn color="green lighten-2" @click.stop="onPush(items.market_cap_rank)">DETAILS</v-btn>
-      
       </div>
     </v-card-text>
   </v-card>
     </v-col>
   </v-row>
- 
-
 </template>
 
 <script lang="ts">
@@ -49,6 +46,8 @@ import store from "../../store";
 import { defineComponent } from "vue";
 // Components
 import inputComponent from "@/components/inputComponent.vue"
+import DataModels from "@/models/DataModels";
+
 
 
 export default defineComponent({
@@ -64,11 +63,10 @@ export default defineComponent({
   methods: {
     deneme(value:string){
         this.search = value
+        console.log(value)
     },
     onPush(id: number) {
-      this.$router.push(`/details/${id}`);
-    
-      
+      this.$router.push(`/details/${id}`); 
     },
   },
   computed: {
@@ -76,8 +74,11 @@ export default defineComponent({
     searchItem(){
         if(this.search.length >= 2){
           const fixSearch = this.search.toLowerCase().replace(/\s/g, "");
-          return store.getters.getItem.filter((x:any) =>
-          x.name.toLowerCase().replace(/\s/g, "").includes(fixSearch))
+          console.log("fixSearch",fixSearch)
+          const filteredItems = store.getters.getItems.filter((x:DataModels) => {
+                return x.name.toLowerCase().replace(/\s/g, "").includes(fixSearch) || x.symbol.toLowerCase().replace(/\s/g, "").includes(fixSearch) 
+          })
+          return filteredItems 
         } else {
           return store.getters.getItems
         }
