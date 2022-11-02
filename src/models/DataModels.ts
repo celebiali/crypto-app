@@ -26,6 +26,7 @@ export default class DataModels {
       this.atl_date = "";
       this.roi = null;
       this.last_updated = "";
+      this.quantity = 0;
     }
     id: string;
     symbol: string;
@@ -53,5 +54,6 @@ export default class DataModels {
     atl_date: string;
     roi: null;
     last_updated: string;
+    quantity: number;
   }
   

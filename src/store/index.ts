@@ -4,17 +4,30 @@ import { createStore } from 'vuex'
 
 export default createStore({
   state: {
-    items:[]
+    items:[],
+    basketItem:[] as Array<DataModels>,
   },
   getters: {
     getItems(state){
       return state.items
+    },
+    getBasketItem(state){
+      return state.basketItem
     }
   },
   mutations: {
   setItems(state,payload){
     state.items=payload
-  }
+  },
+  addBasket(state,payload){
+      const data = state.basketItem.find((item) => item.id === payload.id)
+      if(data && data.quantity <= 1){
+          data.quantity++
+      } else if(!data?.quantity) {
+        state.basketItem.push({...payload,quantity:1});
+        localStorage.setItem("basket",JSON.stringify(state.basketItem))
+      }
+    }
   },
   actions: {
     setItems(context) {

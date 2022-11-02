@@ -1,5 +1,7 @@
 <template>
+  <keep-alive>
     <input-component @searchText="deneme"/>
+  </keep-alive>
   <v-row >
     <v-col  v-for="(items, i) in searchItem" :key="i">
       <v-card width="20em" height="20em"  style="margin-top:100px" >
@@ -29,8 +31,8 @@
          </span>
          <br>
       <div class="d-flex justify-center align-center pa-8">
-        <v-btn icon >
-            <v-icon>mdi-thumb-up</v-icon>
+        <v-btn  icon @click.stop="addBasket(items)">
+            <v-icon  >mdi-thumb-up</v-icon>
           </v-btn>
           <v-spacer></v-spacer>
       <v-btn color="green lighten-2" @click.stop="onPush(items.market_cap_rank)">DETAILS</v-btn>
@@ -63,18 +65,20 @@ export default defineComponent({
   methods: {
     deneme(value:string){
         this.search = value
-        console.log(value)
+       
     },
     onPush(id: number) {
       this.$router.push(`/details/${id}`); 
     },
+    addBasket(item:any){
+      store.commit("addBasket",item)
+    }
   },
   computed: {
     //hesaplama sürekli işlemlerde
     searchItem(){
         if(this.search.length >= 2){
           const fixSearch = this.search.toLowerCase().replace(/\s/g, "");
-          console.log("fixSearch",fixSearch)
           const filteredItems = store.getters.getItems.filter((x:DataModels) => {
                 return x.name.toLowerCase().replace(/\s/g, "").includes(fixSearch) || x.symbol.toLowerCase().replace(/\s/g, "").includes(fixSearch) 
           })

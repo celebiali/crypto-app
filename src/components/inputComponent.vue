@@ -3,7 +3,7 @@
     <div class="taginputWrapper">
       <div class="tags" v-for="(item,index) in tagList" :key="index">
         <span class="content">{{item}}</span>
-        <span class="close">X</span>
+        <span class="close" @click.prevent="removeLocal">X</span>
       </div>
       <div
         style="
@@ -47,25 +47,36 @@ export default defineComponent({
       value: "",
       show: true,
       tagList: new Array<string>(),
-      error:false
+      error:false,
     };
   },
   methods: {
      addToList(e:KeyboardEvent){
       if(e.code==="Enter"){
-        console.log("charcod",e);
-        
         this.tagList.push(this.searchText)
         this.searchText=""
+        localStorage.setItem("s",JSON.stringify(this.tagList))
       }
+     },
+     removeLocal(e:any){
+      console.log("aasd",e.x);
+      
      }
   },  
   watch: {
     searchText() {
       this.$emit("searchText", this.searchText);
-      console.log(this.searchText);
-    },
+    }, 
   },
+  mounted(){
+     const item = localStorage.getItem("s")
+    if(item){
+      var arr = JSON.parse(item);
+      this.tagList = arr;
+      console.log(arr);
+    }
+   
+  }
 });
 </script>
 
